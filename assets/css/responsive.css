@@ -244,3 +244,100 @@ body.dark .settings-card p {
     justify-content: center !important;
   }
 }
+/* ===================================================
+   CRITICAL MOBILE REPAIR (<= 768px)
+   =================================================== */
+@media (max-width: 768px) {
+  /* 1. Kill all horizontal viewport blowout */
+  html, body {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    position: relative;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* 2. Fix the overflowing top navigation bar */
+  nav, .navbar, .nav-container, header {
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding: 0.75rem 1rem !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    justify-content: space-between !important;
+  }
+
+  /* Hide raw desktop links on mobile so they stop stretching the page */
+  nav ul, 
+  .nav-links, 
+  .nav-menu, 
+  .navbar-nav {
+    display: none !important; 
+  }
+
+  /* 3. Stack Hero Section Vertically */
+  .hero, 
+  .hero-container, 
+  .hero-section, 
+  .hero-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 2rem 1.25rem !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero-content, 
+  .hero-text, 
+  .hero-left {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+
+  .hero-buttons, 
+  .cta-group {
+    justify-content: center !important;
+    display: flex !important;
+    gap: 0.75rem !important;
+    margin: 1.5rem auto !important;
+  }
+
+  /* Preview card beneath the hero text */
+  .hero-preview, 
+  .hero-image, 
+  .hero-right, 
+  .dashboard-preview {
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 1.5rem auto 0 auto !important;
+    position: static !important; /* Disables absolute/float offsets */
+    transform: none !important;
+  }
+
+  /* 4. Stack Feature & Bottom Cards into Single Columns */
+  .features-grid, 
+  .cards-grid, 
+  .features, 
+  .grid {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    padding: 1rem !important;
+    box-sizing: border-box !important;
+    gap: 1rem !important;
+  }
+
+  .card, 
+  .feature-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+}

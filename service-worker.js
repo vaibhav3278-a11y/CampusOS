@@ -3,7 +3,7 @@
 // Service Worker v2.0 - Production Cache
 // ======================================
 
-const CACHE_NAME = "campusos-v2.0";
+const CACHE_NAME = "campusos-v2.1";
 
 // 1. Static Core Cache: Relative paths for GitHub Pages subfolder support
 const CORE_ASSETS = [

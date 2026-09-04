@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusOS | AI Assistant</title>
+    <link rel="manifest" href="../manifest.json">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">🎓</div>
+
+            <h2>CampusOS</h2>
+
+        </div>
+
+        <ul class="sidebar-menu">
+
+            <li>
+                <a href="../dashboard.html">🏠 Dashboard</a>
+            </li>
+
+            <li>
+                <a href="assignments.html">📚 Assignments</a>
+            </li>
+
+            <li>
+                <a href="notes.html">📝 Notes</a>
+            </li>
+
+            <li>
+                <a href="planner.html">📅 Planner</a>
+            </li>
+
+            <li class="active">
+                <a href="assistant.html">🤖 AI Assistant</a>
+            </li>
+
+            <li>
+                <a href="internship.html">💼 Internship</a>
+            </li>
+
+            <li>
+                <a href="placement.html">🎯 Placement</a>
+            </li>
+
+            <li>
+                <a href="profile.html">👤 Profile</a>
+            </li>
+
+            <li>
+                <a href="settings.html">⚙ Settings</a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main -->
+
+    <main class="main-content">
+
+        
+
+           <div class="topbar">
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <!-- Mobile Toggle Button -->
+        <button id="mobileMenuBtn" class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 24px; cursor: pointer;">
+            ☰
+        </button>
+        <h2>🤖 CampusOS Assistant</h2>
+    </div>
+</div>
+        <!-- Greeting -->
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h2 id="assistantGreeting">
+
+                    Good Morning
+
+                </h2>
+
+                <p>
+
+                    Your personal CampusOS productivity assistant.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <!-- Today's Summary -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2 class="card-title">
+
+                    📊 Today's Summary
+
+                </h2>
+
+            </div>
+
+            <div class="card-body">
+
+                <ul id="summaryList">
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <!-- Recommendations -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2 class="card-title">
+
+                    💡 Smart Recommendations
+
+                </h2>
+
+            </div>
+
+            <div class="card-body">
+
+                <ul id="recommendationList">
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <!-- Productivity -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2 class="card-title">
+
+                    🎯 Productivity Score
+
+                </h2>
+
+            </div>
+
+            <div class="card-body">
+
+                <h1 id="productivityScore">
+
+                    0%
+
+                </h1>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="../assets/js/core/storage.js"></script>
+<script src="../assets/js/core/dateUtils.js"></script>
+
+<script src="../assets/js/services/profileService.js"></script>
+<script src="../assets/js/services/assignmentService.js"></script>
+<script src="../assets/js/services/plannerService.js"></script>
+<script src="../assets/js/services/internshipService.js"></script>
+<script src="../assets/js/services/placementService.js"></script>
+<script src="../assets/js/services/dashboardService.js"></script>
+<script src="../assets/js/services/assistantService.js"></script>
+
+<script src="../assets/js/page/assistant.js"></script>
+
+<script src="../assets/js/services/settingsService.js"></script>
+<script src="../assets/js/core/theme.js"></script>
+
+<script src="../assets/js/core/notification.js"></script>
+
+</body>
+
+</html>

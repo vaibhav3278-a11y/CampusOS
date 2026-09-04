@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CampusOS Dashboard</title>
+
+    <link rel="stylesheet"
+          href="assets/css/style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">🎓</div>
+
+            <h2>CampusOS</h2>
+
+        </div>
+
+        <ul class="sidebar-menu">
+
+    <li class="active">
+        <a href="dashboard.html">🏠 Dashboard</a>
+    </li>
+
+    <li>
+        <a href="pages/assignments.html">📚 Assignments</a>
+    </li>
+
+    <li>
+        <a href="pages/notes.html">📝 Notes</a>
+    </li>
+    
+    <li><a href="pages/casestudy.html">💼 Case Solver</a></li>
+
+    <li>
+        <a href="pages/planner.html">📅 Planner</a>
+    </li>
+
+    <li>
+        <a href="pages/assistant.html">🤖 AI Assistant</a>
+    </li>
+
+    <li>
+        <a href="pages/internship.html">💼 Internship</a>
+    </li>
+
+    <li>
+        <a href="pages/placement.html">🎯 Placement</a>
+    </li>
+
+    <li>
+        <a href="pages/analytics.html">📊 Analytics</a>
+    </li>
+
+    <li>
+        <a href="pages/profile.html">👤 Profile</a>
+    </li>
+
+    <li>
+        <a href="pages/settings.html">⚙ Settings</a>
+    </li>
+
+</ul>
+
+    </aside>
+
+    <!-- Main -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div style="display: flex; align-items: center; gap: 15px;">
+        <!-- This button will only show up on phones -->
+        <button id="mobileMenuBtn" class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 24px; cursor: pointer;">
+            ☰
+        </button>
+
+            <h2>
+
+                👋 Welcome Back, <span id="studentName">Student</span>
+
+            </h2>
+
+        </header>
+
+        <section class="stats-grid">
+
+    <div class="stat-card">
+
+        <h3>📚 Assignments</h3>
+
+        <h1 id="dashboardAssignments">0</h1>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h3>📝 Notes</h3>
+
+        <h1 id="dashboardNotes">0</h1>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h3>💼 Internships</h3>
+
+        <h1 id="dashboardInternships">0</h1>
+
+    </div>
+
+   <div class="stat-card">
+
+    <h3>📈 Productivity</h3>
+
+    <h1 id="dashboardProductivity">0%</h1>
+
+</div>
+
+</section>
+        <!-- ================= DASHBOARD WIDGETS ================= -->
+
+<section class="dashboard-widgets">
+
+   <div class="widget">
+
+    <h3>📅 Today's Planner</h3>
+
+    <ul id="todayPlannerList">
+
+    </ul>
+
+</div>
+
+    <div class="widget">
+
+        <h3>📚 Upcoming Assignments</h3>
+
+       <ul id="upcomingAssignments">
+
+</ul>
+
+    </div>
+
+    <div class="widget">
+
+    <h3>🤖 AI Assistant</h3>
+
+    <p id="dashboardGreeting"></p>
+
+    <p id="dashboardSuggestion"></p>
+
+</div>
+
+    <div class="widget">
+
+    <h3>💼 Internship Tracker</h3>
+
+    <p>
+
+        Applications :
+        <strong id="dashboardApplications">0</strong>
+
+    </p>
+
+    <p>
+
+        Interviews :
+        <strong id="dashboardInterviews">0</strong>
+
+    </p>
+
+    <p>
+
+        Offers :
+        <strong id="dashboardOffers">0</strong>
+
+    </p>
+
+</div>
+
+</section>
+<section class="dashboard-widgets">
+
+    <div class="widget">
+
+        <h3>🕒 Recent Activity</h3>
+
+        <ul id="recentActivityList">
+
+        </ul>
+
+    </div>
+
+</section>
+
+    </main>
+
+</div>
+
+<script src="assets/js/core/storage.js"></script>
+
+<script src="assets/js/core/dateUtils.js"></script>
+
+<script src="assets/js/services/assignmentService.js"></script>
+<script src="assets/js/services/notesService.js"></script>
+<script src="assets/js/services/plannerService.js"></script>
+<script src="assets/js/services/internshipService.js"></script>
+<script src="assets/js/services/placementService.js"></script>
+
+<script src="assets/js/services/profileService.js"></script>
+<script src="assets/js/services/settingsService.js"></script>
+<script src="assets/js/core/theme.js"></script>
+<script src="assets/js/core/notification.js"></script>
+<script src="assets/js/services/dashboardService.js"></script>
+
+<script src="assets/js/page/dashboard.js"></script>
+
+
+<script>
+if ("serviceWorker" in navigator) {
+
+    navigator.serviceWorker.register("service-worker.js");
+
+}
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusOS | Internship Tracker</title>
+    <link rel="manifest" href="../manifest.json">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">🎓</div>
+
+            <h2>CampusOS</h2>
+
+        </div>
+
+        <ul class="sidebar-menu">
+
+            <li><a href="../dashboard.html">🏠 Dashboard</a></li>
+
+            <li><a href="assignments.html">📚 Assignments</a></li>
+
+            <li><a href="notes.html">📝 Notes</a></li>
+
+            <li><a href="planner.html">📅 Planner</a></li>
+
+            <li class="active"><a href="internship.html">💼 Internship</a></li>
+
+            <li><a href="placement.html">🎯 Placement</a></li>
+
+            <li><a href="profile.html">👤 Profile</a></li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main -->
+
+    <main class="main-content">
+
+        <div class="topbar">
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <!-- Mobile Toggle Button -->
+        <button id="mobileMenuBtn" class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 24px; cursor: pointer;">
+            ☰
+        </button>
+        <h2>💼 Internship Tracker</h2>
+    </div>
+
+    <button
+        id="addInternshipBtn"
+        class="btn btn-primary">
+        + New Application
+    </button>
+</div>
+
+        <!-- Statistics -->
+
+        <div class="assignment-stats">
+
+            <div class="stat-card">
+
+                <h4>Total</h4>
+
+                <h2 id="totalApplications">0</h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h4>Applied</h4>
+
+                <h2 id="appliedApplications">0</h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h4>Interview</h4>
+
+                <h2 id="interviewApplications">0</h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h4>Offers</h4>
+
+                <h2 id="offerApplications">0</h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h4>Rejected</h4>
+
+                <h2 id="rejectedApplications">0</h2>
+
+            </div>
+
+        </div>
+
+        <!-- Search -->
+
+        <div class="search-section">
+
+            <input
+                type="text"
+                id="searchInternship"
+                placeholder="Search company or role...">
+
+        </div>
+
+        <!-- Internship Cards -->
+
+        <div
+            class="assignment-list"
+            id="internshipList">
+
+        </div>
+
+        <!-- Modal -->
+
+        <div
+            class="modal"
+            id="internshipModal">
+
+            <div class="modal-content">
+
+                <h2 id="internshipModalTitle">
+
+                    💼 New Internship
+
+                </h2>
+
+                <form id="internshipForm">
+
+                    <div class="input-group">
+
+                        <label>Company</label>
+
+                        <input
+                            type="text"
+                            id="company"
+                            required>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Role</label>
+
+                        <input
+                            type="text"
+                            id="role"
+                            required>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Location</label>
+
+                        <input
+                            type="text"
+                            id="location">
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Package / Stipend</label>
+
+                        <input
+                            type="text"
+                            id="package">
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Application Date</label>
+
+                        <input
+                            type="date"
+                            id="applicationDate"
+                            required>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Status</label>
+
+                        <select id="status">
+
+                            <option>Applied</option>
+                            <option>OA</option>
+                            <option>Interview</option>
+                            <option>HR</option>
+                            <option>Offer</option>
+                            <option>Rejected</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Job Link</label>
+
+                        <input
+                            type="url"
+                            id="jobLink">
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Notes</label>
+
+                        <textarea
+                            id="internshipNotes"
+                            rows="4"></textarea>
+
+                    </div>
+
+                    <div class="modal-buttons">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+
+                            Save Application
+
+                        </button>
+
+                        <button
+                            type="button"
+                            id="cancelInternshipBtn"
+                            class="btn btn-outline">
+
+                            Cancel
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="../assets/js/core/storage.js"></script>
+<script src="../assets/js/core/toast.js"></script>
+<script src="../assets/js/core/modal.js"></script>
+<script src="../assets/js/core/validator.js"></script>
+<script src="../assets/js/core/dateUtils.js"></script>
+
+<script src="../assets/js/services/internshipService.js"></script>
+<script src="../assets/js/page/internship.js"></script>
+
+<script src="../assets/js/services/settingsService.js"></script>
+<script src="../assets/js/core/theme.js"></script>
+
+
+<script src="../assets/js/core/notification.js"></script>
+
+</body>
+
+</html>

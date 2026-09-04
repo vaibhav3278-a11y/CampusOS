@@ -1,0 +1,115 @@
+/* ======================================
+   CampusOS Design System
+   Button Component
+   Version : 1.0
+====================================== */
+
+/* Base Button */
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:all .3s ease;
+
+    text-decoration:none;
+
+}
+
+/* Primary */
+
+.btn-primary{
+
+    background:#4F46E5;
+
+    color:#fff;
+
+}
+
+.btn-primary:hover{
+
+    background:#4338CA;
+
+    transform:translateY(-2px);
+
+}
+
+/* Success */
+
+.btn-success{
+
+    background:#22C55E;
+
+    color:#fff;
+
+}
+
+.btn-success:hover{
+
+    background:#16A34A;
+
+}
+
+/* Danger */
+
+.btn-danger{
+
+    background:#EF4444;
+
+    color:#fff;
+
+}
+
+.btn-danger:hover{
+
+    background:#DC2626;
+
+}
+
+/* Outline */
+
+.btn-outline{
+
+    background:#fff;
+
+    border:2px solid #4F46E5;
+
+    color:#4F46E5;
+
+}
+
+.btn-outline:hover{
+
+    background:#4F46E5;
+
+    color:#fff;
+
+}
+
+/* Disabled */
+
+.btn:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+}

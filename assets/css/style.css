@@ -1,0 +1,211 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+@import url("variables.css");
+
+/* Layout */
+@import url("navbar.css");
+@import url("footer.css");
+
+/* Landing Page */
+@import url("auth.css");
+@import url("hero.css");
+@import url("features.css");
+@import url("trust.css");
+@import url("specialization.css");
+@import url("assistant.css");
+@import url("dashboard-preview.css");
+@import url("testimonials.css");
+@import url("faq.css");
+
+/* Reusable Components */
+@import url("cards.css");
+@import url("buttons.css");
+
+@import url("components/cards.css");
+@import url("components/buttons.css");
+@import url("components/forms.css");
+@import url("components/modal.css");
+@import url("components/toast.css");
+
+/* Pages */
+@import url("dashboard.css");
+@import url("assignments.css");
+@import url("notes.css");
+@import url("planner.css");
+@import url("internship.css");
+@import url("placement.css");
+
+/* Utilities */
+@import url("animations.css");
+@import url("responsive.css");
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:'Inter',sans-serif;
+
+    background:var(--background);
+
+    color:var(--dark);
+
+    overflow-x:hidden;
+
+}
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+button{
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    font-family:inherit;
+
+}
+
+img{
+
+    width:100%;
+
+    display:block;
+
+}
+
+.container{
+
+    width:min(1200px,92%);
+
+    margin:auto;
+
+}
+section{
+
+    padding:100px 0;
+
+}
+
+ul{
+
+    list-style:none;
+
+}
+/* ======================================
+   Dark Theme
+====================================== */
+
+body.dark{
+
+    background:var(--background);
+
+    color:var(--text);
+
+    transition:.3s;
+
+}
+
+body.dark .card,
+
+body.dark .widget,
+
+body.dark .stat-card{
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+}
+
+body.dark .sidebar{
+
+    background:#111827;
+
+}
+
+body.dark .topbar{
+
+    background:var(--surface);
+
+}
+
+body.dark input,
+
+body.dark textarea,
+
+body.dark select{
+
+    background:#0F172A;
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+}
+
+body.dark h1,
+
+body.dark h2,
+
+body.dark h3,
+
+body.dark h4,
+
+body.dark h5,
+
+body.dark h6,
+
+body.dark p,
+
+body.dark span,
+
+body.dark li,
+
+body.dark label{
+
+    color:var(--text);
+
+}
+
+body.dark table{
+
+    color:var(--text);
+
+}
+
+body.dark a{
+
+    color:inherit;
+
+}
+body.dark button{
+
+    color:white;
+
+}
+
+body.dark .btn-secondary{
+
+    background:#334155;
+
+}

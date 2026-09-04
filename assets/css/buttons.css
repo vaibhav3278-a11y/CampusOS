@@ -1,0 +1,99 @@
+/* ======================================
+   CampusOS Button System
+====================================== */
+
+.btn{
+
+    display:inline-flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:14px 24px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    font-family:inherit;
+
+    transition:.25s;
+
+    text-decoration:none;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.btn-primary{
+
+    background:#4F46E5;
+
+    color:#fff;
+
+}
+
+.btn-primary:hover{
+
+    background:#4338CA;
+
+}
+
+.btn-success{
+
+    background:#22C55E;
+
+    color:#fff;
+
+}
+
+.btn-success:hover{
+
+    background:#16A34A;
+
+}
+
+.btn-danger{
+
+    background:#EF4444;
+
+    color:#fff;
+
+}
+
+.btn-danger:hover{
+
+    background:#DC2626;
+
+}
+
+.btn-outline{
+
+    background:#fff;
+
+    color:#4F46E5;
+
+    border:2px solid #4F46E5;
+
+}
+
+.btn-outline:hover{
+
+    background:#4F46E5;
+
+    color:#fff;
+
+}

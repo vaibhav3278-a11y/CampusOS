@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusOS | Smart Notes</title>
+    <link rel="manifest" href="../manifest.json">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- Direct link to Mobile Rules -->
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">🎓</div>
+            <h2>CampusOS</h2>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="../dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="assignments.html">📚 Assignments</a></li>
+            <li class="active"><a href="notes.html">📝 Notes</a></li>
+            <li><a href="casestudy.html">💼 Case Solver</a></li>
+            <li><a href="planner.html">📅 Planner</a></li>
+            <li><a href="internship.html">💼 Internship</a></li>
+            <li><a href="placement.html">🎯 Placement</a></li>
+            <li><a href="profile.html">👤 Profile</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+
+        <!-- Topbar -->
+        <div class="topbar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <button id="mobileMenuBtn" class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 24px; cursor: pointer;">☰</button>
+                <h2>📝 Smart Notes</h2>
+            </div>
+            
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button id="aiNoteBtn" class="btn btn-primary" style="background: linear-gradient(135deg, #6366f1, #a855f7); color: #ffffff; border: none; font-weight: 600; padding: 10px 16px; border-radius: 8px; cursor: pointer;">
+                    ✨ Generate with AI
+                </button>
+                <button id="addNoteBtn" class="btn btn-outline" style="padding: 10px 16px; border-radius: 8px; cursor: pointer;">
+                    + New Note
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="assignment-stats">
+            <div class="stat-card">
+                <h4>Total Notes</h4>
+                <h2 id="totalNotes">0</h2>
+            </div>
+            <div class="stat-card">
+                <h4>Pinned</h4>
+                <h2 id="pinnedNotes">0</h2>
+            </div>
+            <div class="stat-card">
+                <h4>Categories</h4>
+                <h2 id="totalCategories">0</h2>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="search-section">
+            <input type="text" id="searchNote" placeholder="Search notes...">
+        </div>
+
+        <!-- Notes -->
+        <div class="assignment-list" id="notesList"></div>
+
+        <!-- Modal -->
+        <div class="modal" id="noteModal">
+            <div class="modal-content">
+                <h2 id="noteModalTitle">📝 New Note</h2>
+                <form id="noteForm">
+                    <div class="input-group">
+                        <label>Title</label>
+                        <input type="text" id="noteTitle" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Category</label>
+                        <input type="text" id="noteCategory" placeholder="Marketing">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Note</label>
+                        <textarea id="noteContent" rows="6" required></textarea>
+                    </div>
+
+                    <div class="modal-buttons">
+                        <button type="submit" id="saveNoteBtn" class="btn btn-primary">Save Note</button>
+                        <button type="button" id="cancelNoteBtn" class="btn btn-outline">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ================= AI GENERATE NOTE MODAL ================= -->
+        <div id="aiModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>✨ Generate Note with AI</h3>
+                    <button class="modal-close" onclick="Modal.close('aiModal')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="smartNoteMode">🎯 Select AI Processing Mode</label>
+                        <select id="smartNoteMode" class="form-input" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 6px; border: 1px solid var(--border);">
+                            <option value="notes" selected>📝 Notes Mode (Concise Structured Summary)</option>
+                            <option value="learn">📚 Learn Mode (Detailed Explanation & Fundamentals)</option>
+                            <option value="exam">⚡ Exam Mode (High-Yield Formulas, Definitions & Expected Q&A)</option>
+                            <option value="casestudy">💼 Case Study Mode (Executive Summary, Dilemma & Framework)</option>
+                            <option value="questions">🎯 Important Questions Mode (Exam Question Bank & Answer Keys)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="aiPrompt">Topic, Case Scenario, or Lecture Text</label>
+                        <textarea 
+                            id="aiPrompt" 
+                            rows="5" 
+                            placeholder="E.g., 'Supply Chain Bottlenecks in E-Commerce' or 'Operating Systems CPU Scheduling Algorithms'..."
+                        ></textarea>
+                    </div>
+                    <div id="aiLoading" style="display: none; text-align: center; padding: 10px; color: var(--primary);">
+                        ⏳ Gemini is crafting your study note...
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button id="submitAiPrompt" class="btn btn-primary">✨ Generate</button>
+                    <button class="btn btn-outline" type="button" onclick="Modal.close('aiModal')">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+<script src="../assets/js/core/storage.js"></script>
+<script src="../assets/js/core/toast.js"></script>
+<script src="../assets/js/core/modal.js"></script>
+<script src="../assets/js/core/validator.js"></script>
+<script src="../assets/js/core/dateUtils.js"></script>
+
+<script src="../assets/js/services/aiService.js"></script>
+<script src="../assets/js/services/notesService.js"></script>
+<script src="../assets/js/page/notes.js"></script>
+
+<script src="../assets/js/services/settingsService.js"></script>
+<script src="../assets/js/core/theme.js"></script>
+<script src="../assets/js/core/notification.js"></script>
+
+</body>
+
+</html>

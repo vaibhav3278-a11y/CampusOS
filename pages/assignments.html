@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="manifest" href="../manifest.json">
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusOS | Assignments</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">🎓</div>
+
+            <h2>CampusOS</h2>
+
+        </div>
+
+        <ul class="sidebar-menu">
+
+            <li><a href="../dashboard.html">🏠 Dashboard</a></li>
+
+            <li class="active"><a href="assignments.html">📚 Assignments</a></li>
+
+            <li><a href="notes.html">📝 Notes</a></li>
+
+            <li><a href="planner.html">📅 Planner</a></li>
+
+            <li><a href="internship.html">💼 Internship</a></li>
+
+            <li><a href="placement.html">🎯 Placement</a></li>
+
+            <li><a href="profile.html">👤 Profile</a></li>
+
+        </ul>
+
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <div class="topbar">
+
+    <h2>📚 Assignment Manager</h2>
+
+    <button id="addAssignmentBtn" class="btn btn-primary">
+
+        + Add Assignment
+
+    </button>
+
+</div>
+
+<!-- ================= Assignment Statistics ================= -->
+
+<section class="assignment-stats">
+
+    <div class="stat-card">
+
+        <h4>Total</h4>
+
+        <h2 id="totalAssignments">0</h2>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h4>Pending</h4>
+
+        <h2 id="pendingAssignments">0</h2>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h4>Completed</h4>
+
+        <h2 id="completedAssignments">0</h2>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h4>High Priority</h4>
+
+        <h2 id="highPriorityAssignments">0</h2>
+
+    </div>
+
+</section>
+
+<!-- ================= Search ================= -->
+
+<div class="search-section">
+
+    <input
+        type="text"
+        id="searchAssignment"
+        class="form-input"
+        placeholder="🔍 Search assignments...">
+
+</div>
+
+<div class="assignment-list" id="assignmentList">
+
+    <!-- Assignments will appear here -->
+
+</div>
+        <div class="assignment-list" id="assignmentList">
+
+            <!-- Assignments will appear here -->
+
+        </div>
+        <!-- ================= ADD ASSIGNMENT MODAL ================= -->
+
+<div class="modal" id="assignmentModal">
+
+    <div class="modal-content">
+
+        <h2>📚 New Assignment</h2>
+
+        <form id="assignmentForm">
+
+            <div class="input-group">
+
+                <label>Assignment Title</label>
+
+                <input
+                    type="text"
+                    id="title"
+                    placeholder="Enter assignment title"
+                    required>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Subject</label>
+
+                <input
+                    type="text"
+                    id="subject"
+                    placeholder="Marketing"
+                    required>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Due Date</label>
+
+                <input
+                    type="date"
+                    id="dueDate"
+                    required>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Priority</label>
+
+                <select id="priority">
+
+                    <option>High</option>
+
+                    <option>Medium</option>
+
+                    <option>Low</option>
+
+                </select>
+
+            </div>
+
+            <div class="modal-buttons">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+
+                    Save Assignment
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+    </main>
+
+</div>
+
+<script src="../assets/js/core/storage.js"></script>
+<script src="../assets/js/core/toast.js"></script>
+<script src="../assets/js/core/modal.js"></script>
+<script src="../assets/js/core/validator.js"></script>
+<script src="../assets/js/core/dateUtils.js"></script>
+
+<script src="../assets/js/services/assignmentService.js"></script>
+<script src="../assets/js/page/assignments.js"></script>
+
+<script src="../assets/js/services/settingsService.js"></script>
+<script src="../assets/js/core/theme.js"></script>
+
+
+<script src="../assets/js/core/notification.js"></script>
+
+</body>
+
+</html>

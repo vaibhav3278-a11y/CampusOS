@@ -1,0 +1,103 @@
+/*==========================
+    DASHBOARD PREVIEW
+===========================*/
+
+.dashboard-preview{
+
+    background:#ffffff;
+
+}
+
+.dashboard-demo{
+
+    background:var(--dark);
+
+    color:white;
+
+    padding:40px;
+
+    border-radius:30px;
+
+    margin-top:60px;
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.dashboard-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+    border-bottom:1px solid rgba(255,255,255,.1);
+
+    padding-bottom:20px;
+
+}
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+
+}
+
+.dashboard-box{
+
+    background:#1E293B;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    transition:.3s;
+
+}
+
+.dashboard-box:hover{
+
+    transform:translateY(-8px);
+
+    background:var(--primary);
+
+}
+
+.dashboard-box h4{
+
+    margin-bottom:15px;
+
+}
+
+.dashboard-box ul{
+
+    display:grid;
+
+    gap:12px;
+
+    list-style:none;
+
+}
+
+.dashboard-box p{
+
+    color:#CBD5E1;
+
+    line-height:1.7;
+
+}
+
+.dashboard-box h2{
+
+    font-size:42px;
+
+    margin:10px 0;
+
+}

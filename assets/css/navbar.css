@@ -1,0 +1,154 @@
+/* ===========================
+        NAVIGATION
+=========================== */
+
+nav{
+
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+
+    background:rgba(255,255,255,.90);
+
+    backdrop-filter:blur(15px);
+
+    z-index:1000;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.navbar{
+
+    height:80px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+/* LOGO */
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+}
+
+.logo-icon{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:14px;
+
+    background:var(--primary-light);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:22px;
+
+}
+
+/* MENU */
+
+.menu{
+
+    display:flex;
+
+    list-style:none;
+
+    gap:35px;
+
+}
+
+.menu a{
+
+    color:var(--text);
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+}
+
+.menu a:hover{
+
+    color:var(--primary);
+
+}
+
+/* BUTTONS */
+
+.nav-buttons{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.login-btn{
+
+    background:white;
+
+    padding:12px 24px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+}
+
+.login-btn:hover{
+
+    background:#f1f5f9;
+
+}
+
+.start-btn{
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:12px 26px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+    box-shadow:0 10px 30px rgba(91,92,235,.30);
+
+}
+
+.start-btn:hover{
+
+    transform:translateY(-3px);
+
+}

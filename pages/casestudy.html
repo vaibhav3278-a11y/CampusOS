@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusOS | Case Study Solver</title>
+    <link rel="manifest" href="../manifest.json">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">🎓</div>
+            <h2>CampusOS</h2>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="../dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="assignments.html">📚 Assignments</a></li>
+            <li><a href="notes.html">📝 Notes</a></li>
+            <li class="active"><a href="casestudy.html">💼 Case Solver</a></li>
+            <li><a href="planner.html">📅 Planner</a></li>
+            <li><a href="internship.html">💼 Internship</a></li>
+            <li><a href="placement.html">🎯 Placement</a></li>
+            <li><a href="profile.html">👤 Profile</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+
+        <div class="topbar">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <button id="mobileMenuBtn" class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 24px; cursor: pointer;">☰</button>
+                <h2>💼 Case Study Solver & Strategic Insights</h2>
+            </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="card" style="background: var(--bg-card, #1e293b); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid var(--border, rgba(255,255,255,0.1));">
+            <label for="caseInput" style="font-weight: 600; display: block; margin-bottom: 8px;">Enter Case Scenario, Business Dilemma, or Topic</label>
+            <textarea 
+                id="caseInput" 
+                rows="5" 
+                class="form-input" 
+                style="width: 100%; box-sizing: border-box; padding: 12px; border-radius: 8px; font-family: inherit; font-size: 14px;"
+                placeholder="E.g., An FMCG company faces 25% delivery delays and rising warehouse inventory carrying costs across tier-2 cities. Formulate a turn-around supply chain strategy..."
+            ></textarea>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; flex-wrap: wrap; gap: 10px;">
+                <span id="caseLoading" style="display: none; color: var(--primary, #6366f1); font-weight: 500;">
+                    ⏳ Dissecting problem statement and formulating strategic solution...
+                </span>
+                <button id="solveCaseBtn" class="btn btn-primary" style="margin-left: auto; padding: 10px 20px;">
+                    ✨ Solve & Extract Insights
+                </button>
+            </div>
+        </div>
+
+        <!-- Result Container -->
+        <div id="caseResultContainer" style="display: none;">
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 id="resultTitle" style="margin: 0; font-size: 20px;">Case Title</h3>
+                <button id="saveToNotesBtn" class="btn btn-outline" style="border-color: var(--primary, #6366f1); color: var(--primary, #6366f1);">
+                    📥 Save to Notes Vault
+                </button>
+            </div>
+
+            <!-- Root Cause & Framework -->
+            <div class="stats-grid" style="margin-bottom: 20px;">
+                <div class="stat-card" style="border-left: 4px solid #ef4444;">
+                    <h4 style="color: #ef4444; margin-bottom: 6px;">🎯 Problem Statement</h4>
+                    <p id="resultProblem" style="font-size: 14px; line-height: 1.5;"></p>
+                </div>
+                <div class="stat-card" style="border-left: 4px solid #10b981;">
+                    <h4 style="color: #10b981; margin-bottom: 6px;">📐 Applied Strategic Framework</h4>
+                    <p id="resultFramework" style="font-size: 14px; line-height: 1.5; font-weight: 600;"></p>
+                </div>
+            </div>
+
+            <!-- Detailed Solution -->
+            <div class="card" style="background: var(--bg-card, #1e293b); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border, rgba(255,255,255,0.1));">
+                <h4 style="color: var(--primary, #6366f1); margin-bottom: 10px;">💡 Recommended Strategic Solution & Action Plan</h4>
+                <div id="resultSolution" style="white-space: pre-wrap; font-size: 14px; line-height: 1.6;"></div>
+            </div>
+
+            <!-- Key Learnings & Insights -->
+            <div class="card" style="background: var(--bg-card, #1e293b); padding: 20px; border-radius: 12px; border: 1px solid var(--border, rgba(255,255,255,0.1));">
+                <h4 style="color: #f59e0b; margin-bottom: 10px;">🧠 Key Learnings & Executive Takeaways</h4>
+                <ul id="resultInsights" style="padding-left: 20px; line-height: 1.8; font-size: 14px;"></ul>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="../assets/js/core/storage.js"></script>
+<script src="../assets/js/core/toast.js"></script>
+<script src="../assets/js/core/modal.js"></script>
+<script src="../assets/js/core/validator.js"></script>
+<script src="../assets/js/core/dateUtils.js"></script>
+
+<script src="../assets/js/services/aiService.js?v=2"></script>
+<script src="../assets/js/services/notesService.js?v=2"></script>
+<script src="../assets/js/page/casestudy.js?v=2"></script>
+
+<script src="../assets/js/services/settingsService.js"></script>
+<script src="../assets/js/core/theme.js"></script>
+
+</body>
+
+</html>

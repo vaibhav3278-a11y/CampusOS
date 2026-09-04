@@ -1,0 +1,119 @@
+/* ======================================
+   CampusOS Design System
+   Form Component
+   Version : 1.0
+====================================== */
+
+/* Form Group */
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    margin-bottom:20px;
+
+}
+
+/* Label */
+
+.form-label{
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#374151;
+
+}
+
+/* Input */
+
+.form-input{
+
+    width:100%;
+
+    padding:14px 16px;
+
+    border:1px solid #D1D5DB;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.3s;
+
+    background:#fff;
+
+}
+
+.form-input:focus{
+
+    border-color:#4F46E5;
+
+    box-shadow:0 0 0 4px rgba(79,70,229,.12);
+
+}
+
+/* Select */
+
+.form-select{
+
+    width:100%;
+
+    padding:14px 16px;
+
+    border:1px solid #D1D5DB;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    outline:none;
+
+    background:#fff;
+
+    transition:.3s;
+
+}
+
+.form-select:focus{
+
+    border-color:#4F46E5;
+
+    box-shadow:0 0 0 4px rgba(79,70,229,.12);
+
+}
+
+/* Textarea */
+
+.form-textarea{
+
+    width:100%;
+
+    min-height:140px;
+
+    padding:16px;
+
+    border-radius:12px;
+
+    border:1px solid #D1D5DB;
+
+    resize:vertical;
+
+    outline:none;
+
+}
+
+.form-textarea:focus{
+
+    border-color:#4F46E5;
+
+    box-shadow:0 0 0 4px rgba(79,70,229,.12);
+
+}

@@ -1,0 +1,162 @@
+/* ======================================
+   CampusOS
+   Planner Pro
+====================================== */
+
+.search-section {
+
+    margin: 25px 0;
+
+}
+
+.search-section input {
+
+    width: 100%;
+    padding: 15px 18px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    transition: .25s;
+
+}
+
+.search-section input:focus {
+
+    border-color: #4F46E5;
+
+}
+
+.planner-card {
+
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: .25s;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+}
+
+.planner-card:hover {
+
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+
+}
+
+.planner-card.completed {
+
+    opacity: .75;
+    border-left: 6px solid #22C55E;
+
+}
+
+.planner-top {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.task-category {
+
+    background: #EEF2FF;
+    color: #4338CA;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+
+}
+
+.task-date {
+
+    color: #6B7280;
+    font-size: 14px;
+
+}
+
+.priority {
+
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+
+}
+
+.priority.high {
+
+    background: #FEE2E2;
+    color: #DC2626;
+
+}
+
+.priority.medium {
+
+    background: #FEF3C7;
+    color: #D97706;
+
+}
+
+.priority.low {
+
+    background: #DCFCE7;
+    color: #15803D;
+
+}
+
+.task-actions {
+
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+
+}
+
+.empty-state {
+
+    text-align: center;
+    padding: 60px 20px;
+    color: #777;
+
+}
+
+.empty-state h3 {
+
+    margin-bottom: 10px;
+
+}
+/* ======================================
+   Planner Dark Mode (RC1 Audit)
+====================================== */
+
+body.dark .planner-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+body.dark .planner-card h3 {
+    color: var(--text);
+}
+
+body.dark .task-category {
+    background: #312E81;
+    color: #C7D2FE;
+}
+
+body.dark .task-date {
+    color: var(--muted);
+}
+
+body.dark .planner-card.completed {
+    background: var(--surface);
+    border-left: 6px solid #22C55E;
+}

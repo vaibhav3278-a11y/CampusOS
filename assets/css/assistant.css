@@ -1,0 +1,126 @@
+/*============================
+      AI ASSISTANT
+=============================*/
+
+.assistant{
+
+    background:var(--primary-light);
+
+}
+
+.assistant-wrapper{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:70px;
+
+    align-items:center;
+
+}
+
+.assistant h2{
+
+    font-size:48px;
+
+    margin:20px 0;
+
+}
+
+.assistant p{
+
+    color:var(--text);
+
+    line-height:1.8;
+
+    margin-bottom:30px;
+
+    font-size:18px;
+
+}
+
+.assistant-list{
+
+    display:grid;
+
+    gap:15px;
+
+}
+
+.assistant-list li{
+
+    background:white;
+
+    padding:15px 20px;
+
+    border-radius:14px;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.chat-card{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:24px;
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.chat{
+
+    margin-bottom:20px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    line-height:1.7;
+
+}
+
+.bot{
+
+    background:#EEF2FF;
+
+}
+
+.user{
+
+    background:#F8FAFC;
+
+    margin-left:70px;
+
+}
+/* ======================================
+   AI Assistant Dark Mode (RC1 Audit)
+====================================== */
+
+body.dark .chat-card,
+body.dark .chat-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+body.dark .chat-message.bot {
+    background: var(--dark);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+body.dark .chat-message.user {
+    background: var(--primary);
+    color: #FFFFFF;
+}
+
+body.dark .chat-input-container input {
+    background: var(--dark);
+    color: var(--text);
+    border: 1px solid var(--border);
+}

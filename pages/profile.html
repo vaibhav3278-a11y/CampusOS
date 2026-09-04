@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusOS | Student Profile</title>
+    <link rel="manifest" href="../manifest.json">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">🎓</div>
+            <h2>CampusOS</h2>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="../dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="assignments.html">📚 Assignments</a></li>
+            <li><a href="notes.html">📝 Notes</a></li>
+            <li><a href="planner.html">📅 Planner</a></li>
+            <li><a href="assistant.html">🤖 AI Assistant</a></li>
+            <li><a href="internship.html">💼 Internship</a></li>
+            <li><a href="placement.html">🎯 Placement</a></li>
+            <li class="active"><a href="profile.html">👤 Profile</a></li>
+            <li><a href="settings.html">⚙ Settings</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+
+        <div class="topbar">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <!-- Mobile Toggle Button -->
+                <button id="mobileMenuBtn" class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 24px; cursor: pointer;">
+                    ☰
+                </button>
+                <h2>👤 Student Profile</h2>
+            </div>
+        </div>
+
+        <!-- Profile Information Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Student Information</h2>
+            </div>
+
+            <div class="card-body">
+                <form id="profileForm">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="fullName" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="email" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="text" id="phone" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">College</label>
+                        <input type="text" id="college" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Degree</label>
+                        <input type="text" id="degree" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Branch</label>
+                        <input type="text" id="branch" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Semester</label>
+                        <input type="text" id="semester" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">LinkedIn</label>
+                        <input type="url" id="linkedin" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">GitHub</label>
+                        <input type="url" id="github" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Career Goal</label>
+                        <input type="text" id="careerGoal" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Bio</label>
+                        <textarea id="bio" class="form-textarea"></textarea>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Save Profile</button>
+                        <button type="button" id="resetProfileBtn" class="btn btn-outline">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Data Backup & Restore Card -->
+        <div class="card" style="margin-top: 20px;">
+            <div class="card-header">
+                <h2 class="card-title">📦 Data Management</h2>
+            </div>
+            <div class="card-body">
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 15px;">
+                    Download a full backup of your notes, study plans, assignments, and placement records, or restore data from an existing backup file.
+                </p>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button id="exportDataBtn" type="button" class="btn btn-primary">
+                        📥 Export Backup (.json)
+                    </button>
+                    <label class="btn btn-outline" style="cursor: pointer; display: inline-flex; align-items: center;">
+                        📤 Restore Backup
+                        <input type="file" id="importDataInput" accept=".json" style="display: none;">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/core/storage.js"></script>
+<script src="../assets/js/core/toast.js"></script>
+<script src="../assets/js/core/validator.js"></script>
+
+<script src="../assets/js/services/profileService.js"></script>
+<script src="../assets/js/page/profile.js"></script>
+
+<script src="../assets/js/services/settingsService.js"></script>
+<script src="../assets/js/core/theme.js"></script>
+<script src="../assets/js/core/notification.js"></script>
+
+</body>
+
+</html>

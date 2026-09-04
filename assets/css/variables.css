@@ -1,0 +1,73 @@
+:root{
+
+    /* Primary Colors */
+
+    --primary:#5B5CEB;
+    --primary-light:#EEF2FF;
+
+    --secondary:#00C2A8;
+
+    --background:#F8FAFC;
+
+    --white:#ffffff;
+
+    --dark:#0F172A;
+
+    --text:#64748B;
+
+    --border:#E2E8F0;
+
+    --success:#22C55E;
+
+    --warning:#F59E0B;
+
+    --danger:#EF4444;
+
+    /* Radius */
+
+    --radius-sm:10px;
+
+    --radius:18px;
+
+    --radius-lg:28px;
+
+    /* Shadows */
+
+    --shadow-sm:0 5px 15px rgba(0,0,0,.05);
+
+    --shadow:0 15px 40px rgba(0,0,0,.08);
+
+    --shadow-lg:0 30px 70px rgba(0,0,0,.12);
+
+    /* Transition */
+
+    --transition:.35s ease;
+
+}
+/* ======================================
+   CampusOS Dark Theme
+====================================== */
+
+body.dark{
+
+    --background:#0F172A;
+
+    --surface:#1E293B;
+
+    --card:#1E293B;
+
+    --primary:#6366F1;
+
+    --secondary:#8B5CF6;
+
+    --accent:#22C55E;
+
+    --text:#F8FAFC;
+
+    --dark:#F8FAFC;
+
+    --muted:#94A3B8;
+
+    --border:#334155;
+
+}

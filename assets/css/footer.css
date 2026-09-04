@@ -1,0 +1,77 @@
+/*==========================
+        FOOTER
+===========================*/
+
+.footer{
+
+    background:var(--dark);
+
+    color:white;
+
+    padding-top:80px;
+
+}
+
+.footer-grid{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr 1fr 1fr;
+
+    gap:50px;
+
+    padding-bottom:50px;
+
+}
+
+.footer-about p{
+
+    color:#CBD5E1;
+
+    margin-top:20px;
+
+    line-height:1.8;
+
+}
+
+.footer-links h3{
+
+    margin-bottom:20px;
+
+}
+
+.footer-links ul{
+
+    display:grid;
+
+    gap:15px;
+
+}
+
+.footer-links li{
+
+    color:#CBD5E1;
+
+    transition:var(--transition);
+
+}
+
+.footer-links li:hover{
+
+    color:white;
+
+    transform:translateX(5px);
+
+}
+
+.footer-bottom{
+
+    border-top:1px solid rgba(255,255,255,.1);
+
+    text-align:center;
+
+    padding:25px 0;
+
+    color:#94A3B8;
+
+}

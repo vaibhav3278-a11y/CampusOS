@@ -1,0 +1,71 @@
+/* ======================================
+   CampusOS Design System
+   Card Component
+   Version : 1.0
+====================================== */
+
+.card{
+
+    background:#ffffff;
+
+    border-radius:20px;
+
+    padding:24px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    transition:.3s ease;
+
+    border:1px solid #ececec;
+
+}
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.12);
+
+}
+
+.card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.card-title{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#222;
+
+}
+
+.card-body{
+
+    color:#555;
+
+    line-height:1.6;
+
+}
+
+.card-footer{
+
+    margin-top:20px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+}

@@ -1,0 +1,177 @@
+/* ======================================
+   CampusOS
+   Smart Notes
+====================================== */
+
+.search-section{
+
+    margin:25px 0;
+
+}
+
+.search-section input{
+
+    width:100%;
+
+    padding:15px 18px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.25s;
+
+}
+
+.search-section input:focus{
+
+    border-color:#4F46E5;
+
+}
+
+.note-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:24px;
+
+    box-shadow:var(--shadow-sm);
+
+    transition:.25s;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.note-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.note-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.note-category{
+
+    display:inline-block;
+
+    background:#EEF2FF;
+
+    color:#4338CA;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.note-content{
+
+    color:#555;
+
+    line-height:1.6;
+
+    white-space:pre-wrap;
+
+}
+
+.note-actions{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:10px;
+
+}
+
+textarea{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    resize:vertical;
+
+    font-family:inherit;
+
+    font-size:15px;
+
+}
+
+.empty-state{
+
+    text-align:center;
+
+    padding:60px 20px;
+
+    color:#777;
+
+}
+
+.empty-state h3{
+
+    margin-bottom:10px;
+
+}
+/* ======================================
+   Notes Dark Mode
+====================================== */
+
+/* Change the card background and border */
+body.dark .note-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+}
+
+/* Make the title text readable on dark backgrounds */
+body.dark .note-card h3 {
+    color: var(--text);
+}
+
+/* Soften the note paragraph text */
+body.dark .note-content,
+body.dark .empty-state {
+    color: var(--muted);
+}
+
+/* Create a dark-mode friendly version of the category tag */
+body.dark .note-category {
+    background: #312E81; /* A deep, dark indigo */
+    color: #C7D2FE; /* A soft, light indigo text */
+}
+
+/* Ensure the textarea input in the modal matches the dark theme */
+body.dark textarea {
+    background: var(--dark);
+    color: var(--text);
+    border: 1px solid var(--border);
+}

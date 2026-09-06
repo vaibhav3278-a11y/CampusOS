@@ -1,26 +1,33 @@
 // ======================================
-// CampusOS - Gemini AI Service (v2.4)
+// CampusOS - Gemini AI Service (v2.5)
 // ======================================
 
 const AIService = {
-    // API Configuration: reads dynamically from storage or defaults to user configuration
-    apiKey: localStorage.getItem("CAMPUSOS_GEMINI_KEY") || "AQ.Ab8RN6KTamKRinRdJ1VNVo38C9-Z5DbgoN2PJW4_GuFRuUzAjg", 
+    apiKey: localStorage.getItem("CAMPUSOS_GEMINI_KEY") || "AQ.Ab8RN6JnUmCNbuSpoYLuGEld5DPJxl9JidttVWmyWG7h0bFdcw", 
     baseUrl: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
 
     /**
-     * Send a raw prompt to Gemini API
-     * @param {string} prompt 
-     * @returns {Promise<string>}
+     * Send prompt to Gemini API supporting both Header & Query Auth
      */
     async generateContent(prompt) {
-        const activeKey = this.apiKey || localStorage.getItem("CAMPUSOS_GEMINI_KEY");
+        const activeKey = (this.apiKey || localStorage.getItem("CAMPUSOS_GEMINI_KEY") || "").trim();
         
-        if (!activeKey || activeKey === "YOUR_GEMINI_API_KEY") {
-            throw new Error("Gemini API Key is missing. Please set your key in Settings or AIService.");
+        if (!activeKey) {
+            throw new Error("Gemini API Key is missing.");
         }
 
-        const endpoint = `${this.baseUrl}?key=${activeKey}`;
+        // AQ.* keys use Bearer Authorization header; AIzaSy* keys use ?key= query param
+        const isOAuthKey = activeKey.startsWith("AQ.");
+        const endpoint = isOAuthKey ? this.baseUrl : `${this.baseUrl}?key=${activeKey}`;
         
+        const headers = {
+            "Content-Type": "application/json"
+        };
+
+        if (isOAuthKey) {
+            headers["Authorization"] = `Bearer ${activeKey}`;
+        }
+
         const payload = {
             contents: [{
                 parts: [{ text: prompt }]
@@ -30,7 +37,7 @@ const AIService = {
         try {
             const response = await fetch(endpoint, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: headers,
                 body: JSON.stringify(payload)
             });
 
@@ -47,12 +54,6 @@ const AIService = {
         }
     },
 
-    /**
-     * Generate structured Smart Note based on chosen mode
-     * @param {string} topicOrText 
-     * @param {string} mode ('learn' | 'notes' | 'exam' | 'casestudy' | 'questions')
-     * @returns {Promise<{title: string, category: string, content: string}>}
-     */
     async generateSmartNote(topicOrText, mode = "notes") {
         let systemContext = "";
 
@@ -101,11 +102,6 @@ Format the content with:
         }
     },
 
-    /**
-     * Solve and dissect a case study into actionable solutions & takeaways
-     * @param {string} caseText 
-     * @returns {Promise<{title: string, problem: string, solution: string, insights: string[], framework: string}>}
-     */
     async solveCaseStudy(caseText) {
         const prompt = `
             You are a premier business school professor and corporate strategy consultant.
@@ -137,12 +133,6 @@ Format the content with:
         }
     },
 
-    /**
-     * Generate an automated study plan with 100% FREE learning resource links
-     * @param {string} subject 
-     * @param {number} days 
-     * @returns {Promise<Array<{day: string, task: string, resourceLink: string}>>}
-     */
     async generateStudyPlan(subject, days) {
         const prompt = `
             You are an expert academic and professional skills planner.
@@ -178,12 +168,6 @@ Format the content with:
         }
     },
 
-    /**
-     * Optimize resume bullet point or generate placement Q&A
-     * @param {string} rawInput 
-     * @param {string} type ('resume' | 'interview')
-     * @returns {Promise<string>}
-     */
     async generatePlacementPrep(rawInput, type = "resume") {
         let prompt = "";
         

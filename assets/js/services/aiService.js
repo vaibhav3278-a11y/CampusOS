@@ -1,11 +1,11 @@
 // ======================================
-// CampusOS - Gemini AI Service (v2.3)
+// CampusOS - Gemini AI Service (v2.4)
 // ======================================
 
 const AIService = {
-    // API Configuration
-    apiKey: "AQ.Ab8RN6KTamKRinRdJ1VNVo38C9-Z5DbgoN2PJW4_GuFRuUzAjg", 
-    baseUrl: "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent",
+    // API Configuration: reads dynamically from storage or defaults to user configuration
+    apiKey: localStorage.getItem("CAMPUSOS_GEMINI_KEY") || "AQ.Ab8RN6KTamKRinRdJ1VNVo38C9-Z5DbgoN2PJW4_GuFRuUzAjg", 
+    baseUrl: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
 
     /**
      * Send a raw prompt to Gemini API
@@ -13,11 +13,13 @@ const AIService = {
      * @returns {Promise<string>}
      */
     async generateContent(prompt) {
-        if (!this.apiKey || this.apiKey === "YOUR_GEMINI_API_KEY") {
-            throw new Error("Gemini API Key is missing. Please set your key in AIService.");
+        const activeKey = this.apiKey || localStorage.getItem("CAMPUSOS_GEMINI_KEY");
+        
+        if (!activeKey || activeKey === "YOUR_GEMINI_API_KEY") {
+            throw new Error("Gemini API Key is missing. Please set your key in Settings or AIService.");
         }
 
-        const endpoint = `${this.baseUrl}?key=${this.apiKey}`;
+        const endpoint = `${this.baseUrl}?key=${activeKey}`;
         
         const payload = {
             contents: [{

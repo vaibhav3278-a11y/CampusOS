@@ -3,47 +3,24 @@
 // ======================================
 
 const AIService = {
-    apiKey: localStorage.getItem("CAMPUSOS_GEMINI_KEY") || "AQ.Ab8RN6JnUmCNbuSpoYLuGEld5DPJxl9JidttVWmyWG7h0bFdcw", 
-    baseUrl: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+    workerUrl: "https://old-dew-2ff0.vaibhav3278.workers.dev",
 
     /**
-     * Send prompt to Gemini API supporting both Header & Query Auth
+     * Send prompt to Cloudflare Proxy Worker
      */
     async generateContent(prompt) {
-        const activeKey = (this.apiKey || localStorage.getItem("CAMPUSOS_GEMINI_KEY") || "").trim();
-        
-        if (!activeKey) {
-            throw new Error("Gemini API Key is missing.");
-        }
-
-        // AQ.* keys use Bearer Authorization header; AIzaSy* keys use ?key= query param
-        const isOAuthKey = activeKey.startsWith("AQ.");
-        const endpoint = isOAuthKey ? this.baseUrl : `${this.baseUrl}?key=${activeKey}`;
-        
-        const headers = {
-            "Content-Type": "application/json"
-        };
-
-        if (isOAuthKey) {
-            headers["Authorization"] = `Bearer ${activeKey}`;
-        }
-
-        const payload = {
-            contents: [{
-                parts: [{ text: prompt }]
-            }]
-        };
-
         try {
-            const response = await fetch(endpoint, {
+            const response = await fetch(this.workerUrl, {
                 method: "POST",
-                headers: headers,
-                body: JSON.stringify(payload)
+                headers: { 
+                    "Content-Type": "application/json" 
+                },
+                body: JSON.stringify({ prompt: prompt })
             });
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.error?.message || "Failed to communicate with Gemini API");
+                throw new Error(errorData.error?.message || errorData.error || `HTTP ${response.status}: Error from proxy`);
             }
 
             const data = await response.json();

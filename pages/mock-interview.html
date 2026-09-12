@@ -5,113 +5,131 @@
     <link rel="manifest" href="../manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusOS | Mock Interview</title>
+    <title>CampusOS | Adaptive Mock Interview</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        .interview-container {
-            max-width: 900px;
-            margin: 1.5rem auto;
-            padding: 2rem;
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        .interview-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr 280px;
+            gap: 20px;
+            padding: 20px;
+            align-items: start;
         }
 
-        .question-box {
-            padding: 1.25rem 1.5rem;
-            background: #f0f4ff;
-            border-left: 5px solid #4f46e5;
-            border-radius: 8px;
-            font-size: 1.15rem;
+        @media (max-width: 1100px) {
+            .interview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: #1e1b4b;
-            margin: 1.5rem 0;
+            color: #334155;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+
+        /* Chat Display */
+        .chat-feed {
+            min-height: 380px;
+            max-height: 520px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 16px;
+        }
+
+        .chat-msg {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.95rem;
             line-height: 1.5;
         }
 
-        .transcribe-box {
-            width: 100%;
-            min-height: 160px;
-            padding: 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 10px;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 1.25rem;
-            background: #f9fafb;
-            resize: vertical;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-
-        .transcribe-box:focus {
-            outline: none;
-            border-color: #4f46e5;
-            background: #fff;
-        }
-
-        .controls {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-
-        .btn {
-            padding: 10px 22px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn-mic {
-            background: #10b981;
-            color: #fff;
-        }
-
-        .btn-mic.recording {
-            background: #ef4444;
-            animation: pulse 1.5s infinite;
-        }
-
-        .btn-submit {
-            background: #4f46e5;
-            color: #fff;
-        }
-
-        .btn-next {
-            background: #f3f4f6;
-            color: #374151;
-            border: 1px solid #e5e7eb;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        .feedback-card {
-            display: none;
-            padding: 1.5rem;
-            border-radius: 12px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            margin-top: 1.5rem;
-        }
-
-        .feedback-card h3 {
-            margin-top: 0;
+        .chat-msg.interviewer {
+            align-self: flex-start;
+            background: #ffffff;
+            border-left: 4px solid #4f46e5;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             color: #1e293b;
         }
 
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
+        .chat-msg.candidate {
+            align-self: flex-end;
+            background: #4f46e5;
+            color: #ffffff;
         }
+
+        .eval-box {
+            margin-top: 8px;
+            padding: 10px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #0f172a;
+        }
+
+        /* Controls */
+        .btn-action {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-launch { background: #4f46e5; color: #fff; width: 100%; }
+        .btn-submit { background: #4f46e5; color: #fff; }
+        .btn-mic { background: #10b981; color: #fff; }
+        .btn-mic.recording { background: #ef4444; animation: pulse 1.2s infinite; }
+
+        .metric-tile {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .metric-title { font-size: 0.8rem; color: #64748b; font-weight: 600; }
+        .metric-value { font-size: 1.6rem; font-weight: 700; color: #4f46e5; margin-top: 4px; }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
     </style>
 </head>
 
@@ -127,42 +145,18 @@
         </div>
 
         <ul class="sidebar-menu">
-            <li>
-                <a href="../dashboard.html">🏠 Dashboard</a>
-            </li>
-            <li>
-                <a href="assignments.html">📚 Assignments</a>
-            </li>
-            <li>
-                <a href="notes.html">📝 Notes</a>
-            </li>
-            <li>
-                <a href="casestudy.html">💼 Case Solver</a>
-            </li>
-            <li>
-                <a href="planner.html">📅 Planner</a>
-            </li>
-            <li>
-                <a href="assistant.html">🤖 AI Assistant</a>
-            </li>
-            <li>
-                <a href="internship.html">💼 Internship</a>
-            </li>
-            <li>
-                <a href="placement.html">🎯 Placement</a>
-            </li>
-            <li class="active">
-                <a href="mock-interview.html">🎙️ Mock Interview</a>
-            </li>
-            <li>
-                <a href="analytics.html">📊 Analytics</a>
-            </li>
-            <li>
-                <a href="profile.html">👤 Profile</a>
-            </li>
-            <li>
-                <a href="settings.html">⚙ Settings</a>
-            </li>
+            <li><a href="../dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="assignments.html">📚 Assignments</a></li>
+            <li><a href="notes.html">📝 Notes</a></li>
+            <li><a href="casestudy.html">💼 Case Solver</a></li>
+            <li><a href="planner.html">📅 Planner</a></li>
+            <li><a href="assistant.html">🤖 AI Assistant</a></li>
+            <li><a href="internship.html">💼 Internship</a></li>
+            <li><a href="placement.html">🎯 Placement</a></li>
+            <li class="active"><a href="mock-interview.html">🎙️ Mock Interview</a></li>
+            <li><a href="analytics.html">📊 Analytics</a></li>
+            <li><a href="profile.html">👤 Profile</a></li>
+            <li><a href="settings.html">⚙ Settings</a></li>
         </ul>
     </aside>
 
@@ -170,40 +164,100 @@
     <main class="main-content">
         <header class="topbar">
             <div style="display: flex; align-items: center; gap: 15px;">
-                <button id="mobileMenuBtn" class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 24px; cursor: pointer;">
-                    ☰
-                </button>
-                <h2>🎙️ AI Mock Interviewer</h2>
+                <button id="mobileMenuBtn" class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 24px; cursor: pointer;">☰</button>
+                <h2>🎙️ AI Adaptive Mock Interviewer</h2>
             </div>
         </header>
 
-        <div class="interview-container">
-            <h2>Real-Time Spoken Practice</h2>
-            <p style="color: #6b7280; margin-top: 4px;">Practice responses aloud with live speech transcription and get recruiter-grade evaluation.</p>
+        <div class="interview-grid">
+            <!-- Left Setup: Choose Role & Options -->
+            <div class="panel-card">
+                <h3 style="margin-top:0;">Interview Setup</h3>
+                
+                <div class="form-group">
+                    <label>Target Role / Domain</label>
+                    <select id="roleSelect" class="form-control">
+                        <option value="Operations & Supply Chain Analyst">Operations & Supply Chain</option>
+                        <option value="Logistics & Warehouse Executive">Logistics & Transportation</option>
+                        <option value="Business Analyst (Excel/BI)">Business Analytics / Excel</option>
+                        <option value="Marketing & Brand Associate">Marketing & Brand Strategy</option>
+                        <option value="Human Resources (HR) Specialist">HR & Talent Acquisition</option>
+                        <option value="Finance & Accounts Associate">Financial Analysis</option>
+                    </select>
+                </div>
 
-            <div class="question-box" id="interviewQuestion">
-                "Tell me about a challenging project where your initial strategy failed. How did you diagnose the breakdown and pivot?"
+                <div class="form-group">
+                    <label>Target Company / Market</label>
+                    <input id="companyInput" type="text" class="form-control" value="Top Logistics & Retail Firm" placeholder="e.g., Amazon, Deloitte, Oman Logistics">
+                </div>
+
+                <div class="form-group">
+                    <label>Difficulty Tier</label>
+                    <select id="difficultySelect" class="form-control">
+                        <option value="Intermediate">Intermediate Campus Round</option>
+                        <option value="Advanced">Advanced Technical</option>
+                        <option value="Brutal / Stress Interview">Brutal / Stress Follow-ups</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>CV Claims / Experience (Optional)</label>
+                    <textarea id="cvInput" class="form-control" style="height: 80px;" placeholder="Paste skills, tools (Excel, Six Sigma), or internships to cross-question..."></textarea>
+                </div>
+
+                <button id="startSessionBtn" class="btn-action btn-launch">🚀 Launch Interview</button>
             </div>
 
-            <textarea id="liveTranscript" class="transcribe-box" placeholder="Click 'Start Speaking' and answer out loud. Your speech will transcribe here in real time..."></textarea>
+            <!-- Middle: Active Chat feed & Mic -->
+            <div class="panel-card">
+                <div id="chatFeed" class="chat-feed">
+                    <div class="chat-msg interviewer">
+                        Select your <strong>Target Role</strong> and parameters on the left, then click <strong>Launch Interview</strong> to start the session.
+                    </div>
+                </div>
 
-            <div class="controls">
-                <button id="micBtn" class="btn btn-mic">🎤 Start Speaking</button>
-                <button id="submitAnswerBtn" class="btn btn-submit">Evaluate My Answer</button>
-                <button id="nextQuestionBtn" class="btn btn-next">New Question</button>
+                <textarea id="transcriptBox" class="form-control" style="height: 85px; margin-bottom: 10px;" placeholder="Click 'Mic' to speak out loud or type your answer here..." disabled></textarea>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button id="micBtn" class="btn-action btn-mic" disabled>🎤 Mic</button>
+                        <span id="micStatus" style="font-size: 0.8rem; color: #ef4444; font-weight: 600; display: none;">Listening...</span>
+                    </div>
+                    <button id="submitBtn" class="btn-action btn-submit" disabled>Submit Spoken Answer</button>
+                </div>
             </div>
 
-            <div id="feedbackContainer" class="feedback-card">
-                <h3>Recruiter Feedback & Score</h3>
-                <div id="feedbackContent" style="white-space: pre-wrap; line-height: 1.6;"></div>
+            <!-- Right: Dynamic Assessment Metrics -->
+            <div class="panel-card">
+                <h3 style="margin-top:0;">Live Assessment</h3>
+                
+                <div class="metric-tile">
+                    <div class="metric-title">Question Progress</div>
+                    <div class="metric-value" id="progressMetric">0 / 5</div>
+                </div>
+
+                <div class="metric-tile">
+                    <div class="metric-title">Selection Estimate</div>
+                    <div class="metric-value" id="probabilityMetric">50%</div>
+                </div>
+
+                <div class="metric-tile">
+                    <div class="metric-title">Average Score</div>
+                    <div class="metric-value" id="scoreMetric">0.0 / 10</div>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <div class="metric-title">Interviewer Inference</div>
+                    <p id="inferenceText" style="font-size: 0.85rem; color: #475569; margin-top: 6px; line-height: 1.4;">Awaiting first question response...</p>
+                </div>
             </div>
         </div>
     </main>
 
 </div>
 
-<script src="../assets/js/services/aiService.js?v=2.6"></script>
-<script src="../assets/js/modules/mockInterview.js?v=1.1"></script>
+<script src="../assets/js/services/aiService.js?v=3.0"></script>
+<script src="../assets/js/modules/mockInterview.js?v=3.0"></script>
 
 </body>
 </html>

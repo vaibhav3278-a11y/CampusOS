@@ -1,145 +1,152 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const roleSelect = document.getElementById("roleSelect");
+    const companyInput = document.getElementById("companyInput");
+    const difficultySelect = document.getElementById("difficultySelect");
+    const cvInput = document.getElementById("cvInput");
+    const startBtn = document.getElementById("startSessionBtn");
+
+    const chatFeed = document.getElementById("chatFeed");
+    const transcriptBox = document.getElementById("transcriptBox");
     const micBtn = document.getElementById("micBtn");
-    const transcriptArea = document.getElementById("liveTranscript");
-    const submitBtn = document.getElementById("submitAnswerBtn");
-    const nextBtn = document.getElementById("nextQuestionBtn");
-    const feedbackBox = document.getElementById("feedbackContainer");
-    const feedbackContent = document.getElementById("feedbackContent");
-    const questionBox = document.getElementById("interviewQuestion");
+    const micStatus = document.getElementById("micStatus");
+    const submitBtn = document.getElementById("submitBtn");
 
-    // Curated interview question pool
-    const interviewQuestions = [
-        "Tell me about a challenging project where your initial strategy failed. How did you diagnose the breakdown and pivot?",
-        "Describe a situation where you had to lead a cross-functional team under a tight deadline with incomplete data.",
-        "How do you prioritize competing business demands when resources and delivery time are strictly constrained?",
-        "Walk me through a time you identified an operational inefficiency and implemented a measurable solution.",
-        "Give an example of a high-stakes disagreement with a teammate or stakeholder. How did you achieve alignment?"
-    ];
-
-    let currentQuestionIndex = 0;
-
-    // Function to set and speak the question
-    function setQuestion(index) {
-        questionBox.textContent = `"${interviewQuestions[index]}"`;
-        transcriptArea.value = "";
-        feedbackBox.style.display = "none";
-        feedbackContent.textContent = "";
-
-        // Voice synthesis: reads question aloud to candidate
-        if ("speechSynthesis" in window) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(interviewQuestions[index]);
-            utterance.rate = 0.95;
-            window.speechSynthesis.speak(utterance);
-        }
-    }
-
-    if (nextBtn) {
-        nextBtn.addEventListener("click", () => {
-            currentQuestionIndex = (currentQuestionIndex + 1) % interviewQuestions.length;
-            setQuestion(currentQuestionIndex);
-        });
-    }
-
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    if (!SpeechRecognition) {
-        alert("Web Speech API is not supported in this browser. Please use Chrome on desktop or Android.");
-        micBtn.disabled = true;
-        return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.lang = "en-US";
+    const progressMetric = document.getElementById("progressMetric");
+    const probabilityMetric = document.getElementById("probabilityMetric");
+    const scoreMetric = document.getElementById("scoreMetric");
+    const inferenceText = document.getElementById("inferenceText");
 
     let isRecording = false;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
 
-    recognition.onresult = (event) => {
-        let currentTranscript = "";
-        for (let i = 0; i < event.results.length; i++) {
-            currentTranscript += event.results[i][0].transcript + " ";
+    if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = "en-US";
+
+        recognition.onresult = (event) => {
+            let currentText = "";
+            for (let i = 0; i < event.results.length; i++) {
+                currentText += event.results[i][0].transcript + " ";
+            }
+            transcriptBox.value = currentText.trim();
+        };
+
+        recognition.onerror = () => stopMic();
+        recognition.onend = () => { if (isRecording) recognition.start(); };
+    }
+
+    function startMic() {
+        if (!recognition) {
+            alert("Speech recognition is not supported in this browser. Please use Chrome.");
+            return;
         }
-        transcriptArea.value = currentTranscript.trim();
-    };
-
-    recognition.onerror = (event) => {
-        console.error("Speech Recognition Error:", event.error);
-        if (event.error === "not-allowed") {
-            alert("Microphone access was denied. Please allow microphone permissions in your browser.");
-        }
-        stopRecording();
-    };
-
-    recognition.onend = () => {
-        if (isRecording) {
-            recognition.start();
-        }
-    };
-
-    function startRecording() {
         isRecording = true;
         recognition.start();
-        micBtn.textContent = "🛑 Stop Recording";
         micBtn.classList.add("recording");
+        micBtn.textContent = "🛑 Stop";
+        micStatus.style.display = "inline";
     }
 
-    function stopRecording() {
+    function stopMic() {
         isRecording = false;
-        recognition.stop();
-        micBtn.textContent = "🎤 Start Speaking";
+        if (recognition) recognition.stop();
         micBtn.classList.remove("recording");
+        micBtn.textContent = "🎤 Mic";
+        micStatus.style.display = "none";
     }
 
-    micBtn.addEventListener("click", () => {
-        if (!isRecording) {
-            startRecording();
-        } else {
-            stopRecording();
+    micBtn.addEventListener("click", () => isRecording ? stopMic() : startMic());
+
+    function appendMessage(role, text, evalDetails = null) {
+        const msg = document.createElement("div");
+        msg.className = `chat-msg ${role}`;
+        
+        let html = `<div>${text}</div>`;
+        if (evalDetails) {
+            html += `
+                <div class="eval-box">
+                    <strong>Score:</strong> ${evalDetails.score}/10 | <strong>Inference:</strong> ${evalDetails.interviewer_inference}
+                    ${evalDetails.what_was_weak && evalDetails.what_was_weak.length ? `<div style="color:#b91c1c; margin-top:4px;"><strong>Weakness:</strong> ${evalDetails.what_was_weak.join(", ")}</div>` : ""}
+                </div>
+            `;
+        }
+        msg.innerHTML = html;
+        chatFeed.appendChild(msg);
+        chatFeed.scrollTop = chatFeed.scrollHeight;
+    }
+
+    startBtn.addEventListener("click", async () => {
+        startBtn.disabled = true;
+        startBtn.textContent = "Initiating...";
+
+        const config = {
+            role: roleSelect.value,
+            company: companyInput.value.trim() || "Target Corporate",
+            difficulty: difficultySelect.value,
+            cvSummary: cvInput.value.trim() || "None provided",
+            maxQuestions: 5
+        };
+
+        try {
+            const initResponse = await AIService.interviewEngine.startInterview(config);
+            chatFeed.innerHTML = "";
+            appendMessage("interviewer", initResponse.next_question);
+
+            transcriptBox.disabled = false;
+            micBtn.disabled = false;
+            submitBtn.disabled = false;
+            progressMetric.textContent = `1 / ${config.maxQuestions}`;
+        } catch (err) {
+            alert("Could not start interview session: " + err.message);
+        } finally {
+            startBtn.disabled = false;
+            startBtn.textContent = "Restart Session";
         }
     });
 
     submitBtn.addEventListener("click", async () => {
-        const answer = transcriptArea.value.trim();
-        const question = questionBox.textContent.trim();
-
-        if (!answer || answer.length < 15) {
-            alert("Please provide a more complete spoken answer before submitting.");
+        const studentAnswer = transcriptBox.value.trim();
+        if (!studentAnswer || studentAnswer.length < 8) {
+            alert("Please state or type a response first.");
             return;
         }
 
-        if (isRecording) stopRecording();
+        if (isRecording) stopMic();
 
+        appendMessage("candidate", studentAnswer);
+        transcriptBox.value = "";
+        transcriptBox.disabled = true;
         submitBtn.disabled = true;
-        submitBtn.textContent = "Evaluating with AI...";
-        feedbackBox.style.display = "block";
-        feedbackContent.textContent = "Analyzing structure, clarity, and STAR-framework alignment...";
-
-        const prompt = `
-You are a senior corporate recruiter and campus placement director.
-Evaluate this student's spoken interview response.
-
-Target Question: ${question}
-Spoken Candidate Answer: "${answer}"
-
-Structure your evaluation:
-1. Overall Grade (Strong Hire / Hire / Needs Work) & Spoken Score (out of 10)
-2. Content & Structure (Did they use STAR? What substance was strong or missing?)
-3. Delivery & Articulation (Flag filler words, rambling, or vague points)
-4. Polished Example Answer (How an elite candidate would deliver this response concisely)
-
-Keep the critique constructive, direct, and actionable.
-`;
 
         try {
-            const feedback = await AIService.generateContent(prompt);
-            feedbackContent.textContent = feedback;
+            const result = await AIService.interviewEngine.submitAnswer(studentAnswer);
+
+            appendMessage("interviewer", `${result.feedback_text}\n\n${result.next_question || ""}`, result.evaluation);
+
+            progressMetric.textContent = `${result.metrics.currentQuestion} / ${result.metrics.maxQuestions}`;
+            probabilityMetric.textContent = `${result.metrics.selectionProbability}%`;
+            scoreMetric.textContent = `${result.metrics.averageScore} / 10`;
+
+            if (result.evaluation && result.evaluation.interviewer_inference) {
+                inferenceText.textContent = `"${result.evaluation.interviewer_inference}"`;
+            }
+
+            if (result.is_final) {
+                transcriptBox.disabled = true;
+                micBtn.disabled = true;
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Interview Finished";
+            } else {
+                transcriptBox.disabled = false;
+                submitBtn.disabled = false;
+            }
         } catch (err) {
-            feedbackContent.textContent = "Error evaluating response: " + err.message;
-        } finally {
+            appendMessage("interviewer", "Error evaluating response. Please try again.");
+            transcriptBox.disabled = false;
             submitBtn.disabled = false;
-            submitBtn.textContent = "Evaluate My Answer";
         }
     });
 });

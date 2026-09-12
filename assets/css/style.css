@@ -209,3 +209,24 @@ body.dark .btn-secondary{
     background:#334155;
 
 }
+
+@media (max-width: 768px) {
+    #mobileMenuBtn {
+        display: inline-block !important;
+    }
+
+    .sidebar {
+        position: fixed !important;
+        top: 0;
+        left: -100%;
+        width: 260px !important;
+        height: 100vh !important;
+        z-index: 9999 !important;
+        transition: left 0.3s ease-in-out !important;
+        background: #1e1e2d !important;
+    }
+
+    .sidebar.open, .sidebar.active {
+        left: 0 !important;
+    }
+}

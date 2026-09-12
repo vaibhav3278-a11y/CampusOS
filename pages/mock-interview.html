@@ -1,66 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <link rel="manifest" href="../manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusOS | AI Mock Interviewer</title>
+    <title>CampusOS | Mock Interview</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .interview-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 1.5rem;
+            max-width: 900px;
+            margin: 1.5rem auto;
+            padding: 2rem;
             background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
+
         .question-box {
-            padding: 1rem 1.2rem;
+            padding: 1.25rem 1.5rem;
             background: #f0f4ff;
-            border-left: 4px solid #4f46e5;
+            border-left: 5px solid #4f46e5;
             border-radius: 8px;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 600;
             color: #1e1b4b;
-            margin-bottom: 1.5rem;
+            margin: 1.5rem 0;
+            line-height: 1.5;
         }
+
         .transcribe-box {
             width: 100%;
-            min-height: 140px;
-            padding: 12px;
+            min-height: 160px;
+            padding: 14px;
             border: 1px solid #d1d5db;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 1rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
             background: #f9fafb;
             resize: vertical;
             box-sizing: border-box;
+            font-family: inherit;
         }
+
+        .transcribe-box:focus {
+            outline: none;
+            border-color: #4f46e5;
+            background: #fff;
+        }
+
         .controls {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             margin-bottom: 1.5rem;
         }
+
         .btn {
-            padding: 10px 20px;
+            padding: 10px 22px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 600;
+            font-size: 0.95rem;
             cursor: pointer;
-            transition: 0.2s ease;
+            transition: all 0.2s ease;
         }
-        .btn-mic { background: #10b981; color: #fff; }
-        .btn-mic.recording { background: #ef4444; animation: pulse 1.5s infinite; }
-        .btn-submit { background: #4f46e5; color: #fff; }
+
+        .btn-mic {
+            background: #10b981;
+            color: #fff;
+        }
+
+        .btn-mic.recording {
+            background: #ef4444;
+            animation: pulse 1.5s infinite;
+        }
+
+        .btn-submit {
+            background: #4f46e5;
+            color: #fff;
+        }
+
+        .btn-next {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
         .feedback-card {
             display: none;
-            padding: 1.2rem;
-            border-radius: 8px;
+            padding: 1.5rem;
+            border-radius: 12px;
             background: #f8fafc;
             border: 1px solid #e2e8f0;
+            margin-top: 1.5rem;
         }
+
+        .feedback-card h3 {
+            margin-top: 0;
+            color: #1e293b;
+        }
+
         @keyframes pulse {
             0% { opacity: 1; }
             50% { opacity: 0.6; }
@@ -68,30 +114,96 @@
         }
     </style>
 </head>
+
 <body>
-    <div class="interview-container">
-        <h2>🎙️ Real-Time AI Mock Interview</h2>
-        <p>Practice spoken responses with live transcription and recruiter-level evaluation.</p>
 
-        <div class="question-box" id="interviewQuestion">
-            "Tell me about a challenging project where your initial strategy failed. How did you diagnose the breakdown and pivot?"
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">🎓</div>
+            <h2>CampusOS</h2>
         </div>
 
-        <textarea id="liveTranscript" class="transcribe-box" placeholder="Click 'Start Speaking' and answer out loud. Your voice will transcribe here in real time..."></textarea>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="../dashboard.html">🏠 Dashboard</a>
+            </li>
+            <li>
+                <a href="assignments.html">📚 Assignments</a>
+            </li>
+            <li>
+                <a href="notes.html">📝 Notes</a>
+            </li>
+            <li>
+                <a href="casestudy.html">💼 Case Solver</a>
+            </li>
+            <li>
+                <a href="planner.html">📅 Planner</a>
+            </li>
+            <li>
+                <a href="assistant.html">🤖 AI Assistant</a>
+            </li>
+            <li>
+                <a href="internship.html">💼 Internship</a>
+            </li>
+            <li>
+                <a href="placement.html">🎯 Placement</a>
+            </li>
+            <li class="active">
+                <a href="mock-interview.html">🎙️ Mock Interview</a>
+            </li>
+            <li>
+                <a href="analytics.html">📊 Analytics</a>
+            </li>
+            <li>
+                <a href="profile.html">👤 Profile</a>
+            </li>
+            <li>
+                <a href="settings.html">⚙ Settings</a>
+            </li>
+        </ul>
+    </aside>
 
-        <div class="controls">
-            <button id="micBtn" class="btn btn-mic">🎤 Start Speaking</button>
-            <button id="submitAnswerBtn" class="btn btn-submit">Evaluate My Answer</button>
-            <button id="nextQuestionBtn" class="btn" style="background:#e5e7eb; color:#374151;">New Question</button>
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="topbar">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <button id="mobileMenuBtn" class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 24px; cursor: pointer;">
+                    ☰
+                </button>
+                <h2>🎙️ AI Mock Interviewer</h2>
+            </div>
+        </header>
+
+        <div class="interview-container">
+            <h2>Real-Time Spoken Practice</h2>
+            <p style="color: #6b7280; margin-top: 4px;">Practice responses aloud with live speech transcription and get recruiter-grade evaluation.</p>
+
+            <div class="question-box" id="interviewQuestion">
+                "Tell me about a challenging project where your initial strategy failed. How did you diagnose the breakdown and pivot?"
+            </div>
+
+            <textarea id="liveTranscript" class="transcribe-box" placeholder="Click 'Start Speaking' and answer out loud. Your speech will transcribe here in real time..."></textarea>
+
+            <div class="controls">
+                <button id="micBtn" class="btn btn-mic">🎤 Start Speaking</button>
+                <button id="submitAnswerBtn" class="btn btn-submit">Evaluate My Answer</button>
+                <button id="nextQuestionBtn" class="btn btn-next">New Question</button>
+            </div>
+
+            <div id="feedbackContainer" class="feedback-card">
+                <h3>Recruiter Feedback & Score</h3>
+                <div id="feedbackContent" style="white-space: pre-wrap; line-height: 1.6;"></div>
+            </div>
         </div>
+    </main>
 
-        <div id="feedbackContainer" class="feedback-card">
-            <h3>Recruiter Feedback & Score</h3>
-            <div id="feedbackContent" style="white-space: pre-wrap; line-height: 1.6;"></div>
-        </div>
-    </div>
+</div>
 
-    <script src="../assets/js/services/aiService.js?v=2.6"></script>
-    <script src="../assets/js/modules/mockInterview.js?v=1.0"></script>
+<script src="../assets/js/services/aiService.js?v=2.6"></script>
+<script src="../assets/js/modules/mockInterview.js?v=1.1"></script>
+
 </body>
 </html>

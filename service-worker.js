@@ -1,9 +1,9 @@
 // ======================================
 // CampusOS
-// Service Worker v2.0 - Production Cache
+// Service Worker v3.0 - Production Cache
 // ======================================
 
-const CACHE_NAME = "campusos-v2.1";
+const CACHE_NAME = "campusos-v3.0";
 
 // 1. Static Core Cache: Relative paths for GitHub Pages subfolder support
 const CORE_ASSETS = [
@@ -18,6 +18,7 @@ const CORE_ASSETS = [
     "./pages/assistant.html",
     "./pages/internship.html",
     "./pages/placement.html",
+    "./pages/mock-interview.html",
     "./pages/profile.html",
     "./pages/settings.html",
     "./assets/css/style.css",
@@ -35,6 +36,7 @@ const CORE_ASSETS = [
     "./assets/js/services/placementService.js",
     "./assets/js/services/profileService.js",
     "./assets/js/services/settingsService.js",
+    "./assets/js/modules/mockInterview.js",
     "./assets/js/page/dashboard.js",
     "./assets/js/page/notes.js",
     "./assets/js/page/planner.js",
@@ -72,12 +74,15 @@ self.addEventListener("activate", event => {
     );
 });
 
-// Fetch Event: Dynamic Caching with Gemini Bypass
+// Fetch Event: Dynamic Caching with AI Gateway Bypass
 self.addEventListener("fetch", event => {
     if (event.request.method !== "GET") return;
 
-    // Critical: Direct network pass-through for Gemini API calls
-    if (event.request.url.includes("generativelanguage.googleapis.com")) {
+    // Direct network pass-through for Cloudflare Worker proxy and Gemini
+    if (
+        event.request.url.includes("workers.dev") || 
+        event.request.url.includes("generativelanguage.googleapis.com")
+    ) {
         return;
     }
 

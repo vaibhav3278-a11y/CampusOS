@@ -1,12 +1,12 @@
 // ======================================
-// CampusOS - Gemini / Groq AI Service (v2.6)
+// CampusOS - Gemini / Groq AI Service (v3.0 - Adaptive Conversational Engine)
 // ======================================
 
 const AIService = {
     workerUrl: "https://old-dew-2ff0.vaibhav3278.workers.dev",
 
     /**
-     * Send prompt to Cloudflare Proxy Worker
+     * Core Gateway to Cloudflare Worker Proxy
      */
     async generateContent(prompt) {
         try {
@@ -31,6 +31,9 @@ const AIService = {
         }
     },
 
+    // ======================================
+    // 1. NOTES & LECTURE GENERATOR
+    // ======================================
     async generateSmartNote(topicOrText, mode = "notes") {
         let systemContext = "";
 
@@ -79,6 +82,9 @@ Format the content with:
         }
     },
 
+    // ======================================
+    // 2. MBB CASE STUDY SOLVER
+    // ======================================
     async solveCaseStudy(caseText) {
         const prompt = `
             You are a senior partner at a top-tier management consulting firm (MBB) and an elite business school professor.
@@ -115,6 +121,9 @@ Format the content with:
         }
     },
 
+    // ======================================
+    // 3. STUDY ROADMAP PLANNER
+    // ======================================
     async generateStudyPlan(subject, days) {
         const prompt = `
             You are an expert academic and professional skills planner.
@@ -150,6 +159,9 @@ Format the content with:
         }
     },
 
+    // ======================================
+    // 4. PLACEMENT PREPARATION (RESUME / QUESTIONS)
+    // ======================================
     async generatePlacementPrep(rawInput, type = "resume") {
         let prompt = "";
         
@@ -193,6 +205,171 @@ Keep the advice direct, realistic, and recruiter-focused.
         } catch (error) {
             console.error("Failed to generate placement prep:", error);
             throw error;
+        }
+    },
+
+    // ======================================
+    // 5. ADAPTIVE PLACEMENT & INTERVIEW ENGINE (CAMPUSOS v3.0)
+    // ======================================
+    interviewEngine: {
+        session: {
+            config: null,
+            history: [],
+            questionCount: 0,
+            maxQuestions: 5,
+            scores: [],
+            selectionProbability: 50,
+            weaknesses: [],
+            strengths: []
+        },
+
+        initSession(config = {}) {
+            this.session = {
+                config: {
+                    company: config.company || "Target Corporate",
+                    role: config.role || "Operations Trainee",
+                    difficulty: config.difficulty || "Intermediate",
+                    type: config.type || "Mixed",
+                    cvSummary: config.cvSummary || "Not provided",
+                    ...config
+                },
+                history: [],
+                questionCount: 0,
+                maxQuestions: config.maxQuestions || 5,
+                scores: [],
+                selectionProbability: 50,
+                weaknesses: [],
+                strengths: []
+            };
+        },
+
+        getSystemInstruction() {
+            const { company, role, difficulty, type, cvSummary } = this.session.config;
+            return `
+You are an experienced placement coach, senior corporate interviewer, and technical evaluator for CampusOS.
+Target Company: ${company}
+Target Role: ${role}
+Difficulty Tier: ${difficulty}
+Interview Type: ${type}
+Candidate Resume Claims: ${cvSummary}
+
+STRICT BEHAVIOR & EVALUATION RULES:
+1. Personality: Professional, direct, no-nonsense, context-aware, and constructively critical.
+2. Tone Guardrail: NEVER use blind flattery, superficial praise, or filler compliments (do NOT say "Great answer!", "Excellent point!", or "Spot on!").
+3. Content & Accountability: If the candidate gives generic statements, demands, or passive answers ("we solved it"), challenge them directly: Ask what THEY personally executed, measured, and delivered.
+4. Truth & Bluffing:
+   - If the student admits "I don't know": Do NOT punish credibility. Acknowledge the honesty, explain the practical concept in 1 sentence, and proceed.
+   - If the student bluffs, hallucinates, or makes contradictory claims: Penalize credibility heavily and point out the exact contradiction.
+5. Domain Context:
+   - For Operations/Supply Chain: Test real-world terms (OTD, OTIF, SLAs, Lead time, 5 Whys, DMAIC, root causes, transporter bottlenecks).
+   - For Excel/Data: Test practical formulas and execution (XLOOKUP, SUMIFS, Pivot Tables, conditional logic).
+   - For Oman / Regional: Focus on multicultural team collaboration, operational adaptability, and commercial business cases without biased claims.
+6. ONE QUESTION AT A TIME: Ask exactly ONE question per turn. Never combine multi-part prompts.
+7. Return strictly valid, parseable JSON with NO markdown blocks (\`\`\`json).
+
+JSON SCHEMA TO RETURN:
+{
+  "evaluation": {
+    "score": 7.2,
+    "knowledge": 7,
+    "practical_understanding": 8,
+    "communication": 7,
+    "professionalism": 7,
+    "credibility": 8,
+    "what_went_well": ["Specific strength 1", "Specific strength 2"],
+    "what_was_weak": ["Specific weakness 1", "Specific weakness 2"],
+    "interviewer_inference": "What a recruiter strictly deduces from this response",
+    "probability_delta": 2
+  },
+  "feedback_text": "2 to 3 sentences of sharp, constructive, no-fluff feedback.",
+  "next_question": "Single question adapted directly from previous answers or probing their CV claims.",
+  "is_final": false,
+  "final_verdict": "HIRE / MAYBE / BORDERLINE / REJECT (Only when is_final is true)"
+}
+`;
+        },
+
+        async startInterview(config) {
+            this.initSession(config);
+            const prompt = `
+${this.getSystemInstruction()}
+
+Action:
+Start the interview. Greet the candidate in one concise professional sentence, set expectations, and ask Question 1.
+Set score fields to 0, what_went_well and what_was_weak to empty arrays, and provide 'next_question'.
+`;
+            const raw = await AIService.generateContent(prompt);
+            let parsed;
+            try {
+                parsed = JSON.parse(raw.replace(/```json/g, "").replace(/```/g, "").trim());
+            } catch {
+                parsed = {
+                    next_question: `Welcome to the interview for the ${this.session.config.role} position at ${this.session.config.company}. Walk me through a challenging operational problem you diagnosed and solved end-to-end.`,
+                    feedback_text: "Interview initialized.",
+                    is_final: false
+                };
+            }
+
+            this.session.questionCount = 1;
+            this.session.history.push({ role: "assistant", content: parsed.next_question });
+            return parsed;
+        },
+
+        async submitAnswer(studentAnswer) {
+            this.session.history.push({ role: "user", content: studentAnswer });
+            const isLast = this.session.questionCount >= this.session.maxQuestions;
+
+            const conversationHistoryContext = this.session.history
+                .map(h => `${h.role === "assistant" ? "Interviewer" : "Candidate"}: ${h.content}`)
+                .join("\n\n");
+
+            const prompt = `
+${this.getSystemInstruction()}
+
+FULL CONVERSATION CONTEXT SO FAR:
+${conversationHistoryContext}
+
+Current Turn: Question ${this.session.questionCount} of ${this.session.maxQuestions}.
+Latest Candidate Spoken Answer: "${studentAnswer}"
+
+Evaluate this answer. 
+${isLast ? "This is the FINAL question. Set 'is_final': true. Provide a definitive hiring assessment (HIRE, MAYBE, BORDERLINE, REJECT), key CV claims to improve, and concrete preparation steps in feedback_text. Leave 'next_question' blank." : "Set 'is_final': false. Formulate the single next question adapting directly to their previous answer, probing gaps, or cross-questioning their resume."}
+`;
+
+            const raw = await AIService.generateContent(prompt);
+            const cleaned = raw.replace(/```json/g, "").replace(/```/g, "").trim();
+            const result = JSON.parse(cleaned);
+
+            if (result.evaluation && typeof result.evaluation.score === "number") {
+                this.session.scores.push(result.evaluation.score);
+                const delta = result.evaluation.probability_delta || 0;
+                this.session.selectionProbability = Math.max(5, Math.min(95, this.session.selectionProbability + delta));
+
+                if (result.evaluation.what_was_weak) {
+                    this.session.weaknesses.push(...result.evaluation.what_was_weak);
+                }
+                if (result.evaluation.what_went_well) {
+                    this.session.strengths.push(...result.evaluation.what_went_well);
+                }
+            }
+
+            if (!result.is_final) {
+                this.session.questionCount++;
+                this.session.history.push({ role: "assistant", content: result.next_question });
+            }
+
+            const totalScore = this.session.scores.reduce((a, b) => a + b, 0);
+            const avg = this.session.scores.length ? (totalScore / this.session.scores.length).toFixed(1) : "0.0";
+
+            return {
+                ...result,
+                metrics: {
+                    currentQuestion: Math.min(this.session.questionCount, this.session.maxQuestions),
+                    maxQuestions: this.session.maxQuestions,
+                    averageScore: avg,
+                    selectionProbability: this.session.selectionProbability
+                }
+            };
         }
     }
 };

@@ -1,5 +1,5 @@
 // ======================================
-// CampusOS - Gemini AI Service (v2.5)
+// CampusOS - Gemini / Groq AI Service (v2.6)
 // ======================================
 
 const AIService = {
@@ -81,21 +81,26 @@ Format the content with:
 
     async solveCaseStudy(caseText) {
         const prompt = `
-            You are a premier business school professor and corporate strategy consultant.
-            Analyze and solve this case study / business scenario:
+            You are a senior partner at a top-tier management consulting firm (MBB) and an elite business school professor.
+            Analyze and solve this business dilemma or case study:
             "${caseText}"
 
-            Provide a rigorous, structured solution. 
-            Respond STRICTLY in valid JSON format with no markdown wrapper or extra text. Use this exact schema:
+            Rules:
+            1. Apply rigorous strategic thinking and root-cause problem breakdown.
+            2. Choose the single most effective business framework (e.g., MECE Issue Tree, Porter's 5 Forces, 4Ps, Unit Economics, or Root-Cause 5 Whys).
+            3. Structure the solution across a phased tactical rollout: Immediate Triage (0-30 days), Process Optimization (30-90 days), and Long-Term Competitive Advantage.
+            4. Keep insights sharp, non-generic, and focused on business risk and ROI.
+
+            Respond STRICTLY in valid JSON format with no markdown formatting (\`\`\`json or backticks) or outer commentary. Use this exact schema:
             {
-                "title": "Clear case title (max 8 words)",
-                "problem": "Precise root-cause problem statement (2-3 sentences)",
-                "framework": "Recommended strategic framework (e.g. MECE, SWOT, Root-Cause 5 Whys, Cost-Benefit)",
-                "solution": "Detailed actionable strategic solution formatted in clear structured paragraphs or numbered steps",
+                "title": "Executive Case Title (max 8 words)",
+                "problem": "Precise root-cause problem statement identifying the primary operational, financial, or strategic bottleneck (max 3 sentences).",
+                "framework": "Strategic Framework Used (e.g., MECE Tree & Unit Economics)",
+                "solution": "Comprehensive, phased implementation plan with actionable metrics and operational milestones.",
                 "insights": [
-                    "Key Learning / Strategic Insight 1",
-                    "Key Learning / Strategic Insight 2",
-                    "Key Learning / Strategic Insight 3"
+                    "Strategic Takeaway 1: Critical business or market reality.",
+                    "Strategic Takeaway 2: Core downside risk and mitigation tactic.",
+                    "Strategic Takeaway 3: Long-term defensible moat."
                 ]
             }
         `;
@@ -150,15 +155,37 @@ Format the content with:
         
         if (type === "resume") {
             prompt = `
-                You are a senior technical recruiter and career coach.
-                Rewrite and enhance the following resume bullet point using strong action verbs, quantifiable metrics, and the STAR framework: "${rawInput}".
-                Keep the output concise, highly professional, and bullet-ready.
-            `;
+You are an executive campus placement director and corporate recruiter.
+Task: Transform this rough experience, project, or task into 3 distinct high-impact, ATS-optimized resume bullet points:
+"${rawInput}"
+
+Strict Execution Rules:
+1. Apply the strict STAR/XYZ framework: "Accomplished [X] as measured by [Y], by doing [Z]".
+2. Every bullet MUST start with a strong executive action verb (e.g., Spearheaded, Architected, Automated, Streamlined, Engineered, Accelerated).
+3. Include realistic quantifiable metrics, percentages, speed increases, or volume impact.
+4. Keep bullets concise (1-2 lines), active, and strictly focused on business or technical value.
+5. Provide ONLY the 3 formatted bullet points as a bulleted list. Do NOT include greetings, tips, or intro text.
+`;
         } else {
             prompt = `
-                You are a corporate hiring manager.
-                Based on the following job role or topic: "${rawInput}", generate 3 high-impact interview questions along with brief, structured answer guidelines for each.
-            `;
+You are a senior hiring director conducting campus recruitment rounds.
+Task: Create a targeted interview preparation guide for the role or topic: "${rawInput}".
+
+Generate exactly 3 core interview questions formatted as follows:
+1. **Technical / Core Competency Question**:
+   - **What Interviewer Tests**: The underlying technical standard or analytical ability.
+   - **Winning Answer Blueprint**: A 3-sentence high-scoring answer structure using industry terminology.
+
+2. **Scenario / Analytical Question**:
+   - **What Interviewer Tests**: Problem-solving mindset under ambiguous operational conditions.
+   - **Winning Answer Blueprint**: A step-by-step diagnostic response structure.
+
+3. **Behavioral / Leadership Question**:
+   - **What Interviewer Tests**: Ownership, conflict resolution, or team delivery.
+   - **Winning Answer Blueprint**: How to structure the response using the STAR method.
+
+Keep the advice direct, realistic, and recruiter-focused.
+`;
         }
 
         try {

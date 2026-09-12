@@ -39,176 +39,119 @@
 @import url("animations.css");
 @import url("responsive.css");
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html{
-
-    scroll-behavior:smooth;
-
+html {
+    scroll-behavior: smooth;
 }
 
-body{
-
-    font-family:'Inter',sans-serif;
-
-    background:var(--background);
-
-    color:var(--dark);
-
-    overflow-x:hidden;
-
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--background);
+    color: var(--dark);
+    overflow-x: hidden;
 }
 
-a{
-
-    text-decoration:none;
-
-    color:inherit;
-
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
-button{
-
-    border:none;
-
-    outline:none;
-
-    cursor:pointer;
-
-    font-family:inherit;
-
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
 }
 
-img{
-
-    width:100%;
-
-    display:block;
-
+img {
+    width: 100%;
+    display: block;
 }
 
-.container{
-
-    width:min(1200px,92%);
-
-    margin:auto;
-
-}
-section{
-
-    padding:100px 0;
-
+.container {
+    width: min(1200px, 92%);
+    margin: auto;
 }
 
-ul{
-
-    list-style:none;
-
+section {
+    padding: 100px 0;
 }
+
+ul {
+    list-style: none;
+}
+
 /* ======================================
    Dark Theme
 ====================================== */
 
-body.dark{
-
-    background:var(--background);
-
-    color:var(--text);
-
-    transition:.3s;
-
+body.dark {
+    background: var(--background);
+    color: var(--text);
+    transition: .3s;
 }
 
 body.dark .card,
-
 body.dark .widget,
-
-body.dark .stat-card{
-
-    background:var(--surface);
-
-    color:var(--text);
-
-    border:1px solid var(--border);
-
+body.dark .stat-card {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
 }
 
-body.dark .sidebar{
-
-    background:#111827;
-
+body.dark .sidebar {
+    background: #111827;
 }
 
-body.dark .topbar{
-
-    background:var(--surface);
-
+body.dark .topbar {
+    background: var(--surface);
 }
 
 body.dark input,
-
 body.dark textarea,
-
-body.dark select{
-
-    background:#0F172A;
-
-    color:var(--text);
-
-    border:1px solid var(--border);
-
+body.dark select {
+    background: #0F172A;
+    color: var(--text);
+    border: 1px solid var(--border);
 }
 
 body.dark h1,
-
 body.dark h2,
-
 body.dark h3,
-
 body.dark h4,
-
 body.dark h5,
-
 body.dark h6,
-
 body.dark p,
-
 body.dark span,
-
 body.dark li,
-
-body.dark label{
-
-    color:var(--text);
-
+body.dark label {
+    color: var(--text);
 }
 
-body.dark table{
-
-    color:var(--text);
-
+body.dark table {
+    color: var(--text);
 }
 
-body.dark a{
-
-    color:inherit;
-
-}
-body.dark button{
-
-    color:white;
-
+body.dark a {
+    color: inherit;
 }
 
-body.dark .btn-secondary{
-
-    background:#334155;
-
+body.dark button {
+    color: white;
 }
+
+body.dark .btn-secondary {
+    background: #334155;
+}
+
+/* ======================================
+   Mobile Layout & Mock Interview Responsiveness
+====================================== */
 
 @media (max-width: 768px) {
     #mobileMenuBtn {
@@ -226,7 +169,46 @@ body.dark .btn-secondary{
         background: #1e1e2d !important;
     }
 
-    .sidebar.open, .sidebar.active {
+    .sidebar.open, 
+    .sidebar.active {
         left: 0 !important;
+    }
+
+    /* Stack the 3 mock interview panels cleanly on phones */
+    .interview-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+        padding: 12px !important;
+    }
+
+    .panel-card {
+        width: 100% !important;
+        padding: 16px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Keep the conversation and transcription box front and center */
+    .panel-card:nth-child(2) {
+        order: 1;
+    }
+
+    /* Setup panel directly below */
+    .panel-card:nth-child(1) {
+        order: 2;
+    }
+
+    /* Live performance assessment card at the bottom */
+    .panel-card:nth-child(3) {
+        order: 3;
+    }
+
+    .chat-feed {
+        min-height: 260px !important;
+        max-height: 350px !important;
+    }
+
+    .metric-value {
+        font-size: 1.35rem !important;
     }
 }
